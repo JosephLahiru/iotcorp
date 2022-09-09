@@ -15,7 +15,7 @@ $dbname = 'iotcorp';
 $dbuser = 'root';
 
 // Database Password
-$dbpass = 'IoTcorp@1234!';
+#$dbpass = 'IoTcorp@1234!';
 
 // Defining base url
 define("BASE_URL", "");
