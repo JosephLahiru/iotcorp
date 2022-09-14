@@ -6,16 +6,16 @@ ini_set('error_reporting', E_ALL);
 date_default_timezone_set('America/Los_Angeles');
 
 // Host Name
-$dbhost = 'localhost';
+$dbhost = '144.24.60.157';
 
 // Database Name
 $dbname = 'iotcorp';
 
 // Database Username
-$dbuser = 'root';
+$dbuser = 'joe';
 
 // Database Password
-#$dbpass = 'IoTcorp@1234!';
+$dbpass = 'Joe@1234!';
 
 // Defining base url
 define("BASE_URL", "");

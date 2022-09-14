@@ -228,8 +228,6 @@ foreach ($result as $row) {
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
 
-	<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5993ef01e2587a001253a261&product=inline-share-buttons"></script>
-
 <?php echo $before_head; ?>
 
 </head>
@@ -242,44 +240,11 @@ foreach ($result as $row) {
 </div>-->
 
 <!-- top bar -->
-<div class="top">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-6 col-sm-6 col-xs-12">
-				<div class="left">
-					<ul>
-						<li><i class="fa fa-phone"></i> <?php echo $contact_phone; ?></li>
-						<li><i class="fa fa-envelope-o"></i> <?php echo $contact_email; ?></li>
-					</ul>
-				</div>
-			</div>
-			<div class="col-md-6 col-sm-6 col-xs-12">
-				<div class="right">
-					<ul>
-						<?php
-						$statement = $pdo->prepare("SELECT * FROM tbl_social");
-						$statement->execute();
-						$result = $statement->fetchAll(PDO::FETCH_ASSOC);
-						foreach ($result as $row) {
-							?>
-							<?php if($row['social_url'] != ''): ?>
-							<li><a href="<?php echo $row['social_url']; ?>"><i class="<?php echo $row['social_icon']; ?>"></i></a></li>
-							<?php endif; ?>
-							<?php
-						}
-						?>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
 
 <div class="header">
 	<div class="container">
 		<div class="row inner">
-			<div class="col-md-4 logo">
+			<div class="col-md-4 center logo">
 				<a href="index.php"><img src="assets/uploads/<?php echo $logo; ?>" alt="logo image"></a>
 			</div>
 			
@@ -403,6 +368,47 @@ foreach ($result as $row) {
 
 							<li><a href="contact.php"><?php echo $contact_title; ?></a></li>
 						</ul>
+
+						<ul class="ms-auto mb-2 mb-lg-0">
+					
+					<?php
+					if(isset($_SESSION['customer'])) {
+						?>
+						<li><i class="fa fa-user"></i> <?php echo LANG_VALUE_13; ?> <?php echo $_SESSION['customer']['cust_name']; ?></li>
+						<li><a href="dashboard.php"><i class="fa fa-home"></i> <?php echo LANG_VALUE_89; ?></a></li>
+						<?php
+					} else {
+						?>
+						<li><a href="login.php"><i class="fa fa-sign-in"></i> <?php echo LANG_VALUE_9; ?></a></li>
+						<li><a href="registration.php"><i class="fa fa-user-plus"></i> <?php echo LANG_VALUE_15; ?></a></li>
+						<?php	
+					}
+					?>
+
+					<li><a href="cart.php"><i class="fa fa-shopping-cart"></i> <?php echo LANG_VALUE_18; ?> (<?php echo LANG_VALUE_1; ?><?php
+					if(isset($_SESSION['cart_p_id'])) {
+						$table_total_price = 0;
+						$i=0;
+	                    foreach($_SESSION['cart_p_qty'] as $key => $value) 
+	                    {
+	                        $i++;
+	                        $arr_cart_p_qty[$i] = $value;
+	                    }                    $i=0;
+	                    foreach($_SESSION['cart_p_current_price'] as $key => $value) 
+	                    {
+	                        $i++;
+	                        $arr_cart_p_current_price[$i] = $value;
+	                    }
+	                    for($i=1;$i<=count($arr_cart_p_qty);$i++) {
+	                    	$row_total_price = $arr_cart_p_current_price[$i]*$arr_cart_p_qty[$i];
+	                        $table_total_price = $table_total_price + $row_total_price;
+	                    }
+						echo $table_total_price;
+					} else {
+						echo '0.00';
+					}
+					?>)</a></li>
+				</ul>
 					</div>
 				</div>
 			</div>
