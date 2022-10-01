@@ -95,6 +95,7 @@ if(isset($_POST['form_contact']))
         $visitor_message = strip_tags($_POST['visitor_message']);
 
         // sending email
+		$mail->isHTML(true);
         $to_admin = $receive_email;
         $subject = $receive_email_subject;
         $message = '
@@ -125,8 +126,13 @@ if(isset($_POST['form_contact']))
                    "MIME-Version: 1.0\r\n" . 
                    "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
-        // Sending email to admin                  
-        mail($to_admin, $subject, $message, $headers); 
+        // Sending email to admin
+		
+//        mail($to_admin, $subject, $message, $headers);
+		$mail->addAddress($to_admin);
+		$mail->Subject = $subject;
+		$mail->Body = $message;
+		$mail->send();
         
         $success_message = $receive_email_thank_you_message;
 

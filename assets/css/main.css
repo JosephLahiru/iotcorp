@@ -17,6 +17,7 @@ h4,
 h5,
 h6 {
   font-family: "Roboto", sans-serif;
+
 }
 
 a {
@@ -151,7 +152,7 @@ a:hover {
 
 .header .logo img {
   max-width: 100%;
-  height: 80px;
+  height: 100%;
 }
 
 .header .navbar-form .form-control {
@@ -886,6 +887,8 @@ Mobile style's
 }
 
 .footer-main {
+  position: absolute;
+  bottom: 0;
   width: 100%;
   height: auto;
   padding: 50px 0;
@@ -2109,9 +2112,12 @@ div.pagination span.disabled {
 }
 
 .bs-slider .item {
+  display: block;
   background-repeat: no-repeat;
-  background-position: top center;
+  background-position:center;
   background-size: cover;
+  object-fit: cover;
+  width: 100%;
   height: 500px;
 }
 
@@ -2146,4 +2152,19 @@ div.pagination span.disabled {
   color: #fff;
   padding-left: 15px;
   padding-right: 15px;
+}
+
+/*
+Forces image to be 100% width and not max width of 100%
+*/
+.carousel-item .img-fluid {
+  width:100%;
+}
+
+/* 
+anchors are inline so you need ot make them block to go full width
+*/
+.carousel-item a {
+  display: block;
+  width:100%;
 }

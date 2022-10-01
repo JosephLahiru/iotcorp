@@ -49,7 +49,7 @@ if(!isset($_SESSION['user'])) {
 		<header class="main-header">
 
 			<a href="index.php" class="logo">
-				<span class="logo-lg">eCommerce PHP</span>
+				<span class="logo-lg">IoT Corp</span>
 			</a>
 
 			<nav class="navbar navbar-static-top">

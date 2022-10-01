@@ -1,6 +1,23 @@
 <?php require_once('header.php'); ?>
 
 <?php
+
+$email = $_REQUEST['email'];
+$ckey = $_REQUEST['key'];
+
+if((isset($email))&&(isset($email))){
+	$statement = $pdo->prepare("SELECT * FROM tbl_customer WHERE cust_email=?");
+    $statement->execute(array($email));
+    $result = $statement->fetchAll(PDO::FETCH_ASSOC);                           
+    foreach ($result as $row) {
+        if($ckey = $row['subs_hash']) {
+            $statement = $pdo->prepare("UPDATE tbl_subscriber SET subs_active=?, WHERE cust_email=?");
+        	$statement->execute(array(1,$email));
+        	$success_message = '<p style="color:green;">Your email is verified successfully</p>';   
+        }
+    }
+}
+
 if ( (!isset($_REQUEST['email'])) || (isset($_REQUEST['token'])) )
 {
     $var = 1;

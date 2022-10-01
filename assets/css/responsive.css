@@ -23,6 +23,7 @@
 		margin-left: 0;
 		margin-right: 0;
 	}
+	.nlc{display: none !important;}
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
@@ -39,6 +40,15 @@
 }
 
 @media only screen and (min-width: 0px) and (max-width: 500px) {
+	.bs-slider .item {
+  		display: block;
+  		background-repeat: no-repeat;
+ 		background-position:center;
+  		background-size: cover;
+  		object-fit: cover;
+  		width: 100%;
+  		height:200px;
+		}
 	ul.bxslider li, ul.bxslider li .text {height: 250px;}
 	.bx-controls a.bx-prev,
 	.bx-controls a.bx-next {font-size: 30px;}
@@ -62,4 +72,6 @@
 	.header .container {
 		padding-right: 0;
 	}
+	.header .right {display: none;}
+	
 }

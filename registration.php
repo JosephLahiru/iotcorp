@@ -85,7 +85,6 @@ if (isset($_POST['form1'])) {
         $cust_datetime = date('Y-m-d h:i:s');
         $cust_timestamp = time();
 
-        // saving into the database
         $statement = $pdo->prepare("INSERT INTO tbl_customer (
                                         cust_name,
                                         cust_cname,
@@ -148,7 +147,7 @@ if (isset($_POST['form1'])) {
                                         $token,
                                         $cust_datetime,
                                         $cust_timestamp,
-                                        0
+                                        1
                                     ));
 
         // Send email for confirmation of the account
@@ -156,19 +155,15 @@ if (isset($_POST['form1'])) {
         
         $subject = LANG_VALUE_150;
         $verify_link = BASE_URL.'verify.php?email='.$to.'&token='.$token;
-        $message = '
-'.LANG_VALUE_151.'<br><br>
-
-<a href="'.$verify_link.'">'.$verify_link.'</a>';
-
-        $headers = "From: noreply@" . BASE_URL . "\r\n" .
-                   "Reply-To: noreply@" . BASE_URL . "\r\n" .
-                   "X-Mailer: PHP/" . phpversion() . "\r\n" . 
-                   "MIME-Version: 1.0\r\n" . 
-                   "Content-Type: text/html; charset=ISO-8859-1\r\n";
-        
-        // Sending Email
-        mail($to, $subject, $message, $headers);
+        $message = 'Your registration is completed.<br>Please check your email address to follow the process to confirm your registration.<br><br><a href="'.$verify_link.'"><b>Click Here To Register</b></a><br><br>This link will be active only for 24 hours.';
+		
+		$mail->isHTML(true);
+		$mail->setFrom("iotcorp.in@gmail.com", "IoTcorp");
+		$mail->addAddress($to);
+		$mail->Subject = $subject;
+		$mail->Body = $message;
+		$mail->send();
+		
 
         unset($_POST['cust_name']);
         unset($_POST['cust_cname']);

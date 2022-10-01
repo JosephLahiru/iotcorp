@@ -38,7 +38,7 @@
             margin: 15,
             dots: false,
             animateIn: true,
-            responsiveClass: true,
+            responsiveClass: false,
             navText: [
                 '<i class="fa fa-angle-left"></i>',
                 '<i class="fa fa-angle-right"></i>'

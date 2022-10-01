@@ -10,6 +10,25 @@ $error_message = '';
 $success_message = '';
 $error_message1 = '';
 $success_message1 = '';
+//Mail Setup
+require "vendor/autoload.php";
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+
+$mail = new PHPMailer(true);
+
+// $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+
+$mail->isSMTP();
+$mail->SMTPAuth = true;
+
+$mail->Host = "smtp.gmail.com";
+$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+$mail->Port = 587;
+
+$mail->Username = "iotcorp.in@gmail.com";
+$mail->Password = "sxtuwhmsxqtzyjhv";
 
 // Getting all language variables into array as global variable
 $i=1;
@@ -80,7 +99,7 @@ foreach ($result as $row) {
 <head>
 
 	<!-- Meta Tags -->
-	<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 
 	<!-- Favicon -->
@@ -244,11 +263,10 @@ foreach ($result as $row) {
 <div class="header">
 	<div class="container">
 		<div class="row inner">
-			<div class="col-md-4 center logo">
+			<div class="logo">
 				<a href="index.php"><img src="assets/uploads/<?php echo $logo; ?>" alt="logo image"></a>
 			</div>
-			
-			<div class="col-md-5 right">
+			<div class="col-md-5 right lsec">
 				<ul>
 					
 					<?php
@@ -290,7 +308,7 @@ foreach ($result as $row) {
 					?>)</a></li>
 				</ul>
 			</div>
-			<div class="col-md-3 search-area">
+			<div class="col-md-4 search-area">
 				<form class="navbar-form navbar-left" role="search" action="search-result.php" method="get">
 					<?php $csrf->echoInputField(); ?>
 					<div class="form-group">
@@ -303,7 +321,7 @@ foreach ($result as $row) {
 	</div>
 </div>
 
-<div class="nav">
+<div class="nav">	
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12 pl_0 pr_0">
@@ -367,25 +385,21 @@ foreach ($result as $row) {
 							<li><a href="faq.php"><?php echo $faq_title; ?></a></li>
 
 							<li><a href="contact.php"><?php echo $contact_title; ?></a></li>
-						</ul>
-
-						<ul class="ms-auto mb-2 mb-lg-0">
-					
-					<?php
+   							<?php
 					if(isset($_SESSION['customer'])) {
 						?>
-						<li><i class="fa fa-user"></i> <?php echo LANG_VALUE_13; ?> <?php echo $_SESSION['customer']['cust_name']; ?></li>
-						<li><a href="dashboard.php"><i class="fa fa-home"></i> <?php echo LANG_VALUE_89; ?></a></li>
+						<li class="navbar-right nlc"><i class="fa fa-user"></i> <?php echo LANG_VALUE_13; ?> <?php echo $_SESSION['customer']['cust_name']; ?></li>
+						<li class="navbar-right nlc"><a href="dashboard.php"><i class="fa fa-home"></i> <?php echo LANG_VALUE_89; ?></a></li>
 						<?php
 					} else {
 						?>
-						<li><a href="login.php"><i class="fa fa-sign-in"></i> <?php echo LANG_VALUE_9; ?></a></li>
-						<li><a href="registration.php"><i class="fa fa-user-plus"></i> <?php echo LANG_VALUE_15; ?></a></li>
+						<li class="navbar-right nlc"><a href="login.php"><i class="fa fa-sign-in"></i> <?php echo LANG_VALUE_9; ?></a></li>
+						<li class="navbar-right nlc"><a href="registration.php"><i class="fa fa-user-plus"></i> <?php echo LANG_VALUE_15; ?></a></li>
 						<?php	
 					}
 					?>
 
-					<li><a href="cart.php"><i class="fa fa-shopping-cart"></i> <?php echo LANG_VALUE_18; ?> (<?php echo LANG_VALUE_1; ?><?php
+					<li class="navbar-right nlc"><a href="cart.php"><i class="fa fa-shopping-cart"></i> <?php echo LANG_VALUE_18; ?> (<?php echo LANG_VALUE_1; ?><?php
 					if(isset($_SESSION['cart_p_id'])) {
 						$table_total_price = 0;
 						$i=0;
@@ -408,7 +422,7 @@ foreach ($result as $row) {
 						echo '0.00';
 					}
 					?>)</a></li>
-				</ul>
+						</ul>
 					</div>
 				</div>
 			</div>

@@ -18,7 +18,7 @@ $dbuser = 'joe';
 $dbpass = 'Joe@1234!';
 
 // Defining base url
-define("BASE_URL", "");
+define("BASE_URL", "https://iotcorp.ml/");
 
 // Getting Admin url
 define("ADMIN_URL", BASE_URL . "admin" . "/");

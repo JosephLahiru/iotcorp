@@ -63,7 +63,7 @@ foreach ($result as $row)
 
 				    		// Inserting data into the database
 				    		$statement = $pdo->prepare("INSERT INTO tbl_subscriber (subs_email,subs_date,subs_date_time,subs_hash,subs_active) VALUES (?,?,?,?,?)");
-				    		$statement->execute(array($_POST['email_subscribe'],$current_date,$current_date_time,$key,0));
+				    		$statement->execute(array($_POST['email_subscribe'],$current_date,$current_date_time,$key,1));
 
 				    		// Sending Confirmation Email
 				    		$to = $_POST['email_subscribe'];
@@ -72,21 +72,14 @@ foreach ($result as $row)
 							// Getting the url of the verification link
 							$verification_url = BASE_URL.'verify.php?email='.$to.'&key='.$key;
 
-							$message = '
-Thanks for your interest to subscribe our newsletter!<br><br>
-Please click this link to confirm your subscription:
-					'.$verification_url.'<br><br>
-This link will be active only for 24 hours.
-					';
+							$message = 'Thanks for your interest to subscribe our newsletter!<br>Please click this link to confirm your subscription:<br><br><a href="'.$verification_url.'"><b>Click here to verify</b></a><br><br>This link will be active only for 24 hours.';
 
-							$headers = 'From: ' . $contact_email . "\r\n" .
-								   'Reply-To: ' . $contact_email . "\r\n" .
-								   'X-Mailer: PHP/' . phpversion() . "\r\n" . 
-								   "MIME-Version: 1.0\r\n" . 
-								   "Content-Type: text/html; charset=ISO-8859-1\r\n";
-
-							// Sending the email
-							mail($to, $subject, $message, $headers);
+							$mail->isHTML(true);
+							$mail->setFrom("iotcorp.in@gmail.com", "IoTcorp");
+							$mail->addAddress($to);
+							$mail->Subject = $subject;
+							$mail->Body = $message;
+							$mail->send();
 
 							$success_message1 = LANG_VALUE_136;
 				    	}
@@ -146,6 +139,7 @@ foreach ($result as $row) {
 ?>
 
 <script src="assets/js/jquery-2.2.4.min.js"></script>
+<!--<script src="assets/js/bootstrap.bundle.min.js"></script>-->
 <script src="assets/js/bootstrap.min.js"></script>
 <script src="https://js.stripe.com/v2/"></script>
 <script src="assets/js/megamenu.js"></script>
